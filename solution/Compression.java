@@ -1,31 +1,31 @@
 class Compression {
 
-	public static String compress(String text) {
-		char[] letters = text.toCharArray();
-		if (letters.length <= 1) {
-			return text;
-		}
-		char nextChar = '\0';
+	public static String compress(String s){
 		int count = 0;
+		char current = ' ';
 		String result = "";
-		for (int i = 0; i < letters.length; i++) {
-			count++;
-			if (i + 1 < letters.length) {
-				nextChar = letters[i + 1];
+
+		for(int i = 0; i < s.length(); i++){
+
+			current = s.charAt(i);
+			count = 1;
+
+			for(int j = i+1; j < s.length(); j++) {
+				if (current == s.charAt(j)) {
+					count++;
+					i++;
+				}												
+			}
+			
+			if (count <= 2) {
+				for (int k = 0; k < count ; k++) {
+					result += current;
+				}	
 			} else {
-				nextChar = '\0';
-			}
-			if (letters[i] != nextChar) {
-				if (count > 2) {
-					result += String.valueOf(count) + letters[i];
-				} else {
-					for (int j = 0; j < count; j++) {
-						result += letters[i];
-					}
-				}
-				count = 0;
-			}
+				result += String.valueOf(count) + current;
+			}	
 		}
+
 		return result;
 	}
 }
